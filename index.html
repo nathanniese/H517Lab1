@@ -17,7 +17,7 @@
         for (var i in data) {
             console.log(street);
             var street = data[i];
-            svgContainer.append('line').attr('x1', street[0].x).attr('x2', street[1].x).attr('y1', street[0].y).attr('y1', street[1].y);
+            svgContainer.append('line').attr('x1', street[0].x).attr('x2', street[1].x).attr('y1', street[0].y).attr('y1', street[1].y).attr('stroke','black');
         }
     });
 
