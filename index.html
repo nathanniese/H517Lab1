@@ -18,7 +18,10 @@
 <script src="https://d3js.org/d3.v3.min.js"></script>
 <script type="text/javascript">
     // D:/Class/DataVisual
-    var path = "D:/Class/DataVisual"
+
+    d3.json("/data/streets.json", function (data) {
+        console.log(data);
+    });
     var CHART_HEIGHT = 130;
     var pets = [45, 21, 102];
     var selection = d3.select('svg').selectAll('rect').data(pets);
