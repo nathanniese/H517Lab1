@@ -10,14 +10,15 @@
 <script src="https://d3js.org/d3.v3.min.js">
 </script>
 <script type="text/javascript">
-    var svgContainer = d3.select("body").append("svg").attr("width", 200).attr("height", 200);
+    var SVG_WIDTH = 200;
+    var SVG_HEIGHT = 200;
+    var Scalor = 10;
+    var svgContainer = d3.select("body").append("svg").attr("width", SVG_WIDTH).attr("height", SVG_HEIGHT);
 
     var streets = d3.json("streets.json", function (data) {
-        console.log(data);
         for (var i in data) {
-            console.log(street);
             var street = data[i];
-            svgContainer.append('line').attr('x1', street[0].x).attr('x2', street[1].x).attr('y1', street[0].y).attr('y1', street[1].y).attr('stroke','black');
+            svgContainer.append('line').attr('x1', street[0].x * Scalor).attr('x2', street[1].x * Scalor).attr('y1', street[0].y * Scalor).attr('y1', street[1].y * Scalor).attr('stroke', 'black');
         }
     });
 
