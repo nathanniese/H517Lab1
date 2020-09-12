@@ -14,18 +14,11 @@
 
     var streets = d3.json("streets.json", function (data) {
         console.log(data);
-        for (var street in data) {
+        for (var i in data) {
             console.log(street);
+            var street = data[i];
+            svgContainer.append('line').attr('x1', street[0].x).attr('x2', street[1].x).attr('y1', street[0].y).attr('y1', street[1].y);
         }
     });
-    console.log(streets);
-    for (var street in streets.value) {
-        console.log(street);
-    }
-    var CHART_HEIGHT = 130;
-    var pets = [45, 21, 102];
-    var selection = d3.select('svg').selectAll('rect').data(pets);
-    selection.attr('y', function (d) { return CHART_HEIGHT - (d / 102) * CHART_HEIGHT });
-    selection.attr('height', function (d) { return (d / 102) * CHART_HEIGHT });
 
 </script>
