@@ -14,6 +14,7 @@
 
     var streets = d3.json("streets.json", function (data) {
         svgContainer.append("line").attr('x1', data[0].x).attr('x2', data[1].x).attr('y1', data[0].y).attr('y2', data[1].y);
+        console.log(data);
     });
 
     var CHART_HEIGHT = 130;
