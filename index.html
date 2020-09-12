@@ -1,1 +1,28 @@
-"Hello World"  
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <svg width="200" height="200">
+        <rect id="bar1" x="50" y="50" width="30" height="100"></rect>
+        <rect id="bar2" x="92" y="50" width="30" height="100"></rect>
+        <rect id="bar3" x="134" y="50" width="30" height="100"></rect>
+
+        <line x1="40" x2="220" y1="130" y2="130" stroke="black"></line>
+        <line x1="40" x2="40" y1="0" y2="130" stroke="black"></line>
+    </svg>
+</body>
+</html>
+<script src="https://d3js.org/d3.v3.min.js"></script>
+<script type="text/javascript">
+    // D:/Class/DataVisual
+    var path = "D:/Class/DataVisual"
+    var CHART_HEIGHT = 130;
+    var pets = [45, 21, 102];
+    var selection = d3.select('svg').selectAll('rect').data(pets);
+    selection.attr('y', function (d) { return CHART_HEIGHT - (d / 102) * CHART_HEIGHT });
+    selection.attr('height', function (d) { return (d / 102) * CHART_HEIGHT });
+
+</script>
