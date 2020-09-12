@@ -12,11 +12,11 @@
 <script type="text/javascript">
     var svgContainer = d3.select("body").append("svg").attr("width", 200).attr("height", 200);
 
-    var streets = d3.json("streets.json", function (data) {
-        //svgContainer.append("line").attr('x1', data[0].x).attr('x2', data[1].x).attr('y1', data[0].y).attr('y2', data[1].y);
-        console.log(data);
-    });
+    var streets = d3.json("streets.json");
     console.log(streets);
+    for (var street in streets.value) {
+        console.log(street);
+    }
     var CHART_HEIGHT = 130;
     var pets = [45, 21, 102];
     var selection = d3.select('svg').selectAll('rect').data(pets);
