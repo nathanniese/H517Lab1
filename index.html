@@ -12,7 +12,10 @@
 <script type="text/javascript">
     var svgContainer = d3.select("body").append("svg").attr("width", 200).attr("height", 200);
 
-    var streets = d3.json("streets.json");
+    var streets = d3.json("streets.json", function (x, y) {
+        consol.log(x);
+        consol.log(y);
+    });
     console.log(streets);
     console.log(streets[0]);
     console.log(streets[1]);
