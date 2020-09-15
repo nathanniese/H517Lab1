@@ -20,13 +20,13 @@
             var street = data[i];
             for (var li = 0; li < street.length - 1; li++)
             {
-                svgContainer.append('line').attr('x1', street[li].x * Scalor).attr('x2', street[li + 1].x * Scalor).attr('y1', street[li].y * Scalor).attr('y2', street[li+1].y * Scalor).attr('stroke', 'black');
+                svgContainer.append('line').attr('x1', street[li].x * Scalor).attr('x2', street[li + 1].x * Scalor).attr('y1', SVG_HEIGHT - (street[li].y * Scalor)).attr('y2', SVG_HEIGHT - (street[li+1].y * Scalor)).attr('stroke', 'black');
             }
         }
     });
 
     var pumps = d3.csv('pumps.csv', function (data) {
-        for (var i = 1; i < data;i++) {
+        for (var i = 1; i < data.length;i++) {
             var pump = data[i];
             svgContainer.append('circle').attr('cx', pump[0] * Scalor).attr('cy', pump[1] * Scalor).attr('r', Scalor/2).attr('fill', 'black');          
         }
