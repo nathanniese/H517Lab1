@@ -26,9 +26,9 @@
     });
 
     var pumps = d3.csv('pumps.csv', function (data) {
-        for (var i = 1; i < data.length;i++) {
+        for (var i in data) {
             var pump = data[i];
-            svgContainer.append('circle').attr('cx', pump[0] * Scalor).attr('cy', pump[1] * Scalor).attr('r', Scalor/2).attr('fill', 'black');          
+            svgContainer.append('circle').attr('cx', pump.x * Scalor).attr('cy', pump.y * Scalor).attr('r', 10).attr('fill', 'black');          
         }
     });
 
