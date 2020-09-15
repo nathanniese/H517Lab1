@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -22,6 +22,13 @@
             {
                 svgContainer.append('line').attr('x1', street[li].x * Scalor).attr('x2', street[li + 1].x * Scalor).attr('y1', street[li].y * Scalor).attr('y2', street[li+1].y * Scalor).attr('stroke', 'black');
             }
+        }
+    });
+
+    var pumps = d3.csv('pumps.csv', function (data) {
+        for (var i = 1; i < data;i++) {
+            var pump = data[i];
+            svgContainer.append('circle').attr('cx', pump[0] * Scalor).attr('cy', pump[1] * Scalor).attr('r', Scalor/2).attr('fill', 'black');          
         }
     });
 
