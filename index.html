@@ -28,7 +28,7 @@
     var pumps = d3.csv('pumps.csv', function (data) {
         for (var i in data) {
             var pump = data[i];
-            svgContainer.append('circle').attr('cx', pump.x * Scalor).attr('cy', pump.y * Scalor).attr('r', 10).attr('fill', 'black');          
+            svgContainer.append('circle').attr('cx', pump.x * Scalor).attr('cy', SVG_HEIGHT - (pump.y * Scalor)).attr('r', 10).attr('fill', 'black');          
         }
     });
 
