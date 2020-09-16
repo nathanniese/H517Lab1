@@ -35,8 +35,8 @@
     });
     timeLineSvgContainer.append('line').attr('x1', 0).attr('x2', SVG_WIDTH).attr('y1', SVG_HEIGHT).attr('y2', SVG_HEIGHT).attr('stroke', 'black');
     var deaths = d3.csv('deathdays.csv', function (data) {
-        scaleFactor = 10,
-        barWidth = 20;
+        scaleFactor = 5,
+        barWidth = 30;
 
         var graph = d3.select("body")
             .append("svg")
@@ -48,7 +48,7 @@
             .enter()
             .append("g")
             .attr("transform", function (d, i) {
-                var y = SVG_HEIGHT - (d.deaths * scaleFactor);
+                var y = SVG_HEIGHT - (d.deaths * scaleFactor) - 100;
                 var x = i * barWidth;
                 return "translate(" + x + " ," + y +")";
             });
