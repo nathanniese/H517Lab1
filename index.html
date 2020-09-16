@@ -69,7 +69,7 @@
             .text(function (d) { return d.date; });
     });
 
-    var deaths = d3.csv('deaths_age_sex.csv', function () {
+    var deaths = d3.csv('deaths_age_sex.csv', function (data) {
         for (var i in data) {
             //var pump = data[i];
             //svgContainer.append('circle').attr('cx', pump.x * Scalor).attr('cy', SVG_HEIGHT - (pump.y * Scalor)).attr('r', 10).attr('fill', 'black');
