@@ -40,8 +40,8 @@
 
         var graph = d3.select("body")
             .append("svg")
-            .attr("width", SVG_WIDTH)
-            .attr("height", barHeight * data.length);
+            .attr("width", barWidth * data.length)
+            .attr("height", SVG_HEIGHT);
 
         var bar = graph.selectAll("g")
             .data(data)
