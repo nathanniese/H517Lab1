@@ -39,9 +39,6 @@
         yScale = d3.scaleLinear().range([SVG_HEIGHT, 0]);
 
     var deaths = d3.csv('deathdays.csv', function (data) {
-        if (error) {
-            throw error;
-        }
 
         xScale.domain(data.map(function (d) { return d.date; }));
         yScale.domain([0, d3.max(data, function (d) { return d.deaths; })]);
