@@ -62,14 +62,6 @@
             })
             .attr("width", barWidth - 1);
 
-        canvas.selectAll("g")
-            .append("text")
-            .attr("transform",
-                function (d) { return "translate(" + SVG_HEIGHT * d + ",30)"; })
-            .attr("font-size", "2em")
-            .attr("color", "black")
-            .text(function (d) { return d; });
-
         bar.append("text")
             .attr("y", function (d) { return SVG_HEIGHT - d - 10; })
             .attr("dy", ".35em")
