@@ -48,7 +48,9 @@
             .enter()
             .append("g")
             .attr("transform", function (d, i) {
-                return "translate(" + i * barWidth + "," + SVG_HEIGHT - (d.deaths * scaleFactor) +")";
+                var y = SVG_HEIGHT - (d.deaths * scaleFactor);
+                var x = i * barWidth;
+                return "translate(" + x + " ," + y +")";
             });
 
         bar.append("rect")
