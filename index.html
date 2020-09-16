@@ -35,8 +35,8 @@
     });
     timeLineSvgContainer.append('line').attr('x1', 0).attr('x2', SVG_WIDTH).attr('y1', SVG_HEIGHT).attr('y2', SVG_HEIGHT).attr('stroke', 'black');
 
-    var xScale = d3.scaleBand().range([0, width]).padding(0.4),
-        yScale = d3.scaleLinear().range([height, 0]);
+    var xScale = d3.scaleBand().range([0, SVG_WIDTH]).padding(0.4),
+        yScale = d3.scaleLinear().range([SVG_HEIGHT, 0]);
 
     var deaths = d3.csv('deathdays.csv', function (data) {
         if (error) {
