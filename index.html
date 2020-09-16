@@ -70,8 +70,9 @@
 
         bar.append("text")
             .attr("x", barWidth / 2)
-            .attr("y", function (d) { return SVG_HEIGHT - (d.deaths * scaleFactor) - 90})
+            .attr("y", function (d) { return d.deaths * scaleFactor + 10})
             .attr("dy", ".35em")
+            .attr("transform", "rotate(75)")
             .text(function (d) { return d.date; });
     });
 
