@@ -48,12 +48,12 @@
             .enter()
             .append("g")
             .attr("transform", function (d, i) {
-                return "translate(" + i * barWidth + ",0)";
+                return "translate(" + i * barWidth + "," + SVG_HEIGHT - (d.deaths * scaleFactor) +")";
             });
 
         bar.append("rect")
             .attr("height", function (d) {
-                return SVG_HEIGHT - (d.deaths * scaleFactor);
+                return d.deaths * scaleFactor;
             })
             .attr("width", barWidth - 1);
 
