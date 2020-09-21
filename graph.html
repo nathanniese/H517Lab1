@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Lab1 Graphs</title>
+    <link rel="stylesheet" href="Lab1.css">
+</head>
+<body>
+    <div class="topnav">
+        <a href="../Lab1/index.html">About</a>
+        <a href="../Lab1/graph.html">Graphs</a>
+    </div>
+</body>
+</html>
+<script src="https://d3js.org/d3.v3.min.js">
+</script>
+<script type="text/javascript">
+
+    let SVG_WIDTH = 1000;
+    let SVG_HEIGHT = 1000;
+
+    let svgContainer = d3.select("body").append("svg").attr("width", SVG_WIDTH).attr("height", SVG_HEIGHT);
+    let deaths = [];
+    let deathsByDays = [];
+    let pumps = [];
+    let maxXYStreet = 0;
+    let Scalor = 0;
+    function run() {
+
+        var div = d3.select("body")
+            .append("div")
+            .attr("class", "tooltip-donut")
+            .style("opacity", 0);
+
+        let streets = d3.json("streets.json", function (data) {
+            for (var i in data) {
+                var street = data[i];
+                for (var li = 0; li < street.length - 1; li++) {
+                    if (street[li].x > maxXYStreet) {
+                        maxXYStreet = street[li].x;
+                    }
+                    else if (street[li].y > maxXYStreet) {
+                        maxXYStreet = street[li].y;
+                    }
+                    else if (street[li + 1].x > maxXYStreet) {
+                        maxXYStreet = street[li + 1].x;
+                    }
+                    else if (street[li + 1].y > maxXYStreet) {
+                        maxXYStreet = street[li + 1].y;
+                    }
+                }
+            }
+            Scalor = (SVG_WIDTH - 20) / maxXYStreet;
+            for (var i in data) {
+                var street = data[i];
+                for (var li = 0; li < street.length - 1; li++) {
+                    svgContainer.append('line').attr('x1', street[li].x * Scalor).attr('x2', street[li + 1].x * Scalor).attr('y1', SVG_HEIGHT - (street[li].y * Scalor)).attr('y2', SVG_HEIGHT - (street[li + 1].y * Scalor)).attr('stroke', 'black');
+                }
+            }
+
+            svgContainer.append('text')
+                .attr('x', SVG_WIDTH / 2)
+                .attr('y', 30)
+                .text("Locations of deaths and pumps")
+                .attr('font-family', 'sans-serif')
+                .attr('font-size', '20px')
+                .attr('font-weight', 'bold');
+            d3.csv('pumps.csv', function (data) {
+                for (var i in data) {
+                    var pump = data[i];
+                    pumps.push(pump);
+                    svgContainer.append('circle')
+                        .attr('cx', pump.x * Scalor)
+                        .attr('cy', SVG_HEIGHT - (pump.y * Scalor))
+                        .attr('r', 7)
+                        .attr('fill', 'black');
+
+
+                    svgContainer.append('text')
+                        .attr('x', pump.x * Scalor + 7)
+                        .attr('y', SVG_HEIGHT - (pump.y * Scalor))
+                        .text('pump');
+                }
+            });
+            d3.csv('deaths_age_sex.csv', function (data) {
+                for (var i in data) {
+                    deaths.push(data[i]);
+                }
+                svgContainer.selectAll("g")
+                    .data(data)
+                    .enter()
+                    .append("rect")
+                        .attr('x', function (d) { return d.x * Scalor })
+                        .attr('y', function (d) { return SVG_HEIGHT - (d.y * Scalor) })
+                        .attr('width', 5)
+                        .attr('height', 5)
+                        .attr('fill', 'black')
+                        .attr('id', function (d, i) { return 'rect' + i })
+                        .on('mouseover', function (d, i) {
+                            d3.select(this).transition()
+                                .duration('50')
+                                .attr('opacity', '.85')
+                                .attr('width', 20)
+                                .attr('height', 20);
+                            //Makes the new div appear on hover:
+                            div.transition()
+                                .duration(50)
+                                .style("opacity", 1);
+
+                            let gen = d.gender;
+                            let age = d.age;
+
+                            if (gen == '0') {
+                                gen = "Male"
+                            }
+                            else {
+                                gen = "Female"
+                            }
+
+                            if (age == "0") {
+                                age = "0-10";
+                            }
+                            else if (age == "1") {
+                                age = "11-20";
+                            }
+                            else if (age == "2") {
+                                age = "21-40";
+                            }
+                            else if (age == "3") {
+                                age = "41-60";
+                            }
+                            else if (age == "4") {
+                                age = "61-80";
+                            }
+                            else if (age == "5") {
+                                age = "80+";
+                            }
+                            div.html('Gender:' + gen + '</br> Age Range:' + age)
+                                .style("left", (d3.event.pageX + 20) + "px")
+                                .style("top", (d3.event.pageY - 30) + "px");
+                        })
+                        .on('mouseout', function (d, i) {
+                            d3.select(this).transition()
+                                .duration('50')
+                                .attr('opacity', '1')
+                                .attr('width', 5)
+                                .attr('height', 5);
+                            //Makes the new div disappear:
+                            div.transition()
+                                .duration('50')
+                                .style("opacity", 0);
+                        });;
+            });
+            return data;
+        });
+
+
+        d3.csv('deathdays.csv', function (data) {
+            scaleFactor = 5,
+                barWidth = 30;
+
+            var graph = d3.select("body")
+                .append("svg")
+                .attr("width", barWidth * data.length)
+                .attr("height", SVG_HEIGHT);
+
+
+            graph.append('text')
+                .attr('x', SVG_WIDTH / 2)
+                .attr('y', SVG_HEIGHT - 10)
+                .text("Day of deaths")
+                .attr('font-family', 'sans-serif')
+                .attr('font-size', '20px')
+                .attr('font-weight', 'bold');
+
+
+            graph.append('text')
+                .attr('x', SVG_WIDTH / 2)
+                .attr('y', 30)
+                .text("Total Deaths per Day")
+                .attr('font-family', 'sans-serif')
+                .attr('font-size', '20px')
+                .attr('font-weight', 'bold');
+
+            graph.append("text")
+                .attr("transform", "translate( 30, " + SVG_HEIGHT / 2 + ") rotate(-90)")
+                .text("Number of deaths")
+                .attr('font-family', 'sans-serif')
+                .attr('font-size', '20px')
+                .attr('font-weight', 'bold');
+
+            var bar = graph.selectAll("g")
+                .data(data)
+                .enter()
+                .append("g")
+                .attr("transform", function (d, i) {
+                    var y = SVG_HEIGHT - (d.deaths * scaleFactor) - 100;
+                    var x = i * barWidth;
+                    deathsByDays.push(d);
+                    return "translate(" + x + " ," + y + ")";
+                })
+                .attr("text-anchor", "end")
+                .attr("stroke", "black")
+                .text("date");
+
+            bar.append("rect")
+                .attr("height", function (d) {
+                    return d.deaths * scaleFactor;
+                })
+                .attr("width", barWidth - 1)
+                .on('mouseover', function (d, i) {
+                    d3.select(this).transition()
+                        .duration('50')
+                        .attr('opacity', '.85');
+                    //Makes the new div appear on hover:
+                    div.transition()
+                        .duration(50)
+                        .style("opacity", 1);
+
+                    let num = d.deaths;
+                    div.html(num)
+                        .style("left", (d3.event.pageX + 10) + "px")
+                        .style("top", (d3.event.pageY - 15) + "px");
+                    showDeaths(d.date,null);
+                })
+                .on('mouseout', function (d, i) {
+                    d3.select(this).transition()
+                        .duration('50')
+                        .attr('opacity', '1');
+                    //Makes the new div disappear:
+                    div.transition()
+                        .duration('50')
+                        .style("opacity", 0);
+                    showDeaths(null, null);
+                });
+
+            bar.append("text")
+                .attr("x", function (d) {
+                    if (d.deaths >= 100) { return barWidth }
+                    else { return barWidth / 2 }
+                })
+                .attr("y", "-10")
+                .text(function (d) { return d.deaths; });
+
+            bar.append("text")
+                .attr("transform", function (d) {
+                    return "translate(" + (barWidth / 2).toString() + " " + (d.deaths * scaleFactor + 15).toString() + ") rotate(-90)"
+                })
+                .text(function (d) { return d.date; })
+                .attr('id', function (d,i) { return 'death' + i});
+        });
+
+        function showDeaths(end, start) {
+            let count = 0;
+            if (start) {
+
+            }
+            else {
+                if (end) {
+                    for (var day in deathsByDays) {
+                        count += parseInt(deathsByDays[day].deaths);
+                        if (deathsByDays[day].date == end) {
+                            break;
+                        }
+                    }
+                }
+                else {
+                    count = deaths.length;
+                }
+                for (var i in deaths) {
+                    if (parseInt(i) <= count) {
+                        d3.select('#rect' + i).attr('opacity', 1);
+                    }
+                    else {
+                        d3.select('#rect' + i).attr('opacity', 0);
+                    }
+                }
+            }
+        }
+    }
+
+    run();
+</script>

@@ -2,84 +2,26 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title></title>
+    <title>About Lab1</title>
+    <link rel="stylesheet" href="Lab1.css">
 </head>
 <body>
+    <div class="topnav">
+            <a href="../Lab1/index.html" >About</a>
+            <a href="../Lab1/graph.html" >Graphs</a>
+    </div>
+    <h2>Nathan Niese Project 1</h2>
+    <p>
+        This project was written by Nathan Niese, for the class H517 Visualization Design, Analysis,
+        & Evaluation.
+        The data files I used for this project were provided by the professor and are linked below.
+        https://medium.com/@kj_schmidt/show-data-on-mouse-over-with-d3-js-3bf598ff8fc2
+        <ul>
+            <li><a href="https://khreda.com/teaching/2020/H517/project1/cholera_data/pumps.csv">pump.csv</a></li>
+            <li><a href="https://khreda.com/teaching/2020/H517/project1/cholera_data/deathdays.csv">deathdays.csv</a></li>
+            <li><a href="https://khreda.com/teaching/2020/H517/project1/cholera_data/deaths_age_sex.csv">deaths_age_sex.csv</a></li>
+            <li><a href="https://khreda.com/teaching/2020/H517/project1/cholera_data/streets.json">streets.json</a></li>
+        </ul>
+    </p>
 </body>
 </html>
-<script src="https://d3js.org/d3.v3.min.js">
-</script>
-<script type="text/javascript">
-    var SVG_WIDTH = 1000;
-    var SVG_HEIGHT = 1000;
-    var Scalor = 50;
-
-    var svgContainer = d3.select("body").append("svg").attr("width", SVG_WIDTH).attr("height", SVG_HEIGHT);
-    var timeLineSvgContainer = d3.select("body").append("svg").attr("width", SVG_WIDTH);
-
-    var streets = d3.json("streets.json", function (data) {
-        for (var i in data) {
-            var street = data[i];
-            for (var li = 0; li < street.length - 1; li++)
-            {
-                svgContainer.append('line').attr('x1', street[li].x * Scalor).attr('x2', street[li + 1].x * Scalor).attr('y1', SVG_HEIGHT - (street[li].y * Scalor)).attr('y2', SVG_HEIGHT - (street[li+1].y * Scalor)).attr('stroke', 'black');
-            }
-        }
-    });
-
-    var pumps = d3.csv('pumps.csv', function (data) {
-        for (var i in data) {
-            var pump = data[i];
-            svgContainer.append('circle').attr('cx', pump.x * Scalor).attr('cy', SVG_HEIGHT - (pump.y * Scalor)).attr('r', 10).attr('fill', 'black');          
-        }
-    });
-    timeLineSvgContainer.append('line').attr('x1', 0).attr('x2', SVG_WIDTH).attr('y1', SVG_HEIGHT).attr('y2', SVG_HEIGHT).attr('stroke', 'black');
-    var deaths = d3.csv('deathdays.csv', function (data) {
-        scaleFactor = 5,
-        barWidth = 30;
-
-        var graph = d3.select("body")
-            .append("svg")
-            .attr("width", barWidth * data.length)
-            .attr("height", SVG_HEIGHT);
-
-        var bar = graph.selectAll("g")
-            .data(data)
-            .enter()
-            .append("g")
-            .attr("transform", function (d, i) {
-                var y = SVG_HEIGHT - (d.deaths * scaleFactor) - 100;
-                var x = i * barWidth;
-                return "translate(" + x + " ," + y +")";
-            })
-            .attr("text-anchor", "end")
-            .attr("stroke", "black")
-            .text("date");
-
-        bar.append("rect")
-            .attr("height", function (d) {
-                return d.deaths * scaleFactor;
-            })
-            .attr("width", barWidth - 1);
-
-        bar.append("text")
-            .attr("x", barWidth/2)
-            .attr("y","-10")
-            .attr("dy", ".35em")
-            .text(function (d) { return d.deaths; });
-
-        graph.append("text")
-            .attr("x", barWidth / 2)
-            .attr("y", function (d) { return d.deaths * scaleFactor + 10})
-            .attr("dy", ".35em")
-            .attr("transform", "rotate(75)")
-            .text(function (d) { return d.date; });
-    });
-
-    var deaths = d3.csv('deaths_age_sex.csv', function (data) {
-        for (var i in data) {
-            //var pump = data[i];
-            //svgContainer.append('circle').attr('cx', pump.x * Scalor).attr('cy', SVG_HEIGHT - (pump.y * Scalor)).attr('r', 10).attr('fill', 'black');
-        }
-    });
-</script>
