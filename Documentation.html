@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>About Lab1</title>
+    <link rel="stylesheet" href="Lab1.css">
+    <style>
+        body {
+            max-width: 1000px;
+            min-width: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div class="topnav">
+        <a href="../Documentation.html">Documentation</a>
+        <a href="../index.html">Graphs</a>
+        <a href="">YouTube</a>
+    </div>
+    <h2>Nathan Niese Project 1</h2>
+    <p>
+        This project was written by Nathan Niese, for the class H517 Visualization Design, Analysis, & Evaluation.
+        <h3>Css</h3>
+        The data files I used for this project were provided by the professor and are linked below. Along with sites I used for css.<br /><br />
+        KJ Schmidt <a href="https://medium.com/@kj_schmidt/show-data-on-mouse-over-with-d3-js-3bf598ff8fc2">Mouse over</a><br />
+        w3School <a href="https://www.w3schools.com/howto/howto_js_topnav.asp">Top Nav bar</a><br />
+        <h3>Files</h3>
+        <ul>
+            <li><a href="https://khreda.com/teaching/2020/H517/project1/cholera_data/pumps.csv">pump.csv</a></li>
+            <li><a href="https://khreda.com/teaching/2020/H517/project1/cholera_data/deathdays.csv">deathdays.csv</a></li>
+            <li><a href="https://khreda.com/teaching/2020/H517/project1/cholera_data/deaths_age_sex.csv">deaths_age_sex.csv</a></li>
+            <li><a href="https://khreda.com/teaching/2020/H517/project1/cholera_data/streets.json">streets.json</a></li>
+        </ul>
+
+        <h3>Design Choices</h3>
+
+        For this project I made a few design choices to make my elements stand out. The first graph I created was the street graph, I decided to try to make the map, as close as possible, to the original map. So, I chose a black and white map along with
+        circles to represent pumps and rectangle to represent deaths. I tried to add depth to the roads by creating two parallel lines centered on the original line, but this created a confusing looking map, more specifically it made it look like a crossing your
+        eyes while looking at the map. To show the specifics of each death I included a mouse over function that brings a small window indicating the age and gender, the css was very easy to work with and looked great I found it at the link above for the css
+        created by KJ Schmidt. I also made the specific death stand out more, so you can see which death you are selecting by changing to the color and making it slightly larger. I also included some major streets by finding specific points in the map and comparing
+        it to the orginal map on the web, I also did this for the work house and Brewery.</br></br>
+
+        The Next chart I created was the death by day chart, to start I created a static bar chart that showed how many people died each day. I then added a mouse over effect that when chosen the selected bar would affect the number of deaths on the previous deaths map
+        it also changed opacity, so it was clear what bar was chosen. I then implemented the ability to select a time span I decided that being able to select one date then mouse over the other. I realized that since one is being selected the chart should be able to mouse
+        over both time before and after, making it more fluent. I also decided that a person can choose to show all deaths after a point by clicking and all before by mouse over. To indicated what is selected I decided to change the color of the bar. After creating the
+        chart we had a class were we discussed why a line chart with circles is a better way to show data using time, so I changed it to line graph with circle points.</br></br>
+
+        On the third and last chart I decided a bar chart would be enough to represent the data. I ordered the data in increasing age order and split the gender using two colors blue to represent males and red for females. While pink and blue have been traditionally used
+        to represent male and female, I thought Blue and red would be easier to see the difference, specifically for visually challenged people, so I added a legend to show what color represent what gender.
+
+
+    </p>
+</body>
+</html>
